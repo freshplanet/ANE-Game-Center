@@ -4,9 +4,6 @@ test/bin/*
 build.config
 GameCenterExtensionTest-app.xml
 
-# Not licensed for distribution
-FlashRuntimeExtensions.h
-
 # Eclipse FDT
 .settings/*
 .project
