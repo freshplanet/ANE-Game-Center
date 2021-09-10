@@ -142,6 +142,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = A2F5431E1F20ED7800474A1F;
@@ -295,6 +296,7 @@
 			baseConfigurationReference = 1AAB7A60D9709716BE9CB317 /* Pods-AirGameCenter.debug.xcconfig */;
 			buildSettings = {
 				DEVELOPMENT_TEAM = HWKC8H7H6U;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -306,6 +308,7 @@
 			baseConfigurationReference = 76614DDD62B47047E4A8B47D /* Pods-AirGameCenter.release.xcconfig */;
 			buildSettings = {
 				DEVELOPMENT_TEAM = HWKC8H7H6U;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
