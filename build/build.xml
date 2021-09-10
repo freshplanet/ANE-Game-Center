@@ -19,14 +19,14 @@
 		<mkdir dir="temp/ios"/>
 
 		<!-- clean the build -->
-		<exec executable="xcodebuild" failonerror="true" dir="../ios">
+		<exec executable="${ios.sdk.build}" failonerror="true" dir="../ios">
 			<arg line="-workspace ${name}.xcworkspace"/>
 			<arg line="-scheme ${name}"/>
 			<arg line="clean"/>
 		</exec>
 
 		<!-- compile the ios lib -->
-		<exec executable="xcodebuild" failonerror="true" dir="../ios">
+		<exec executable="${ios.sdk.build}" failonerror="true" dir="../ios">
 			<arg line="-workspace ${name}.xcworkspace"/>
 			<arg line="-scheme ${name}"/>
 			<arg line="-sdk iphoneos"/>
