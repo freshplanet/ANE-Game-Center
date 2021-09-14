@@ -9,6 +9,13 @@
 				<finalizer>AirGameCenterFinalizer</finalizer>
 			</applicationDeployment>
 		</platform>
+		<platform name="MacOS-x86-64">
+			<applicationDeployment>
+				<nativeLibrary>AirGameCenterMac.framework</nativeLibrary>
+				<initializer>AirGameCenterInitializer</initializer>
+				<finalizer>AirGameCenterFinalizer</finalizer>
+			</applicationDeployment>
+		</platform>
 		<platform name="default">
 			<applicationDeployment/>
 		</platform>
