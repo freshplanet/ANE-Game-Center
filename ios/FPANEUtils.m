@@ -65,7 +65,7 @@ NSArray* AirGameCenter_FPANE_FREObjectToNSArrayOfNSString(FREObject object) {
     
     return [NSArray arrayWithArray:mutableArray];
 }
-
+#if TARGET_OS_IPHONE
 UIImage* AirGameCenter_FPANE_FREBitmapDataToUIImage(FREObject object) {
     
     
@@ -115,7 +115,9 @@ UIImage* AirGameCenter_FPANE_FREBitmapDataToUIImage(FREObject object) {
     
     return image;
 }
+#endif
 
+#if TARGET_OS_IPHONE
 NSArray* AirGameCenter_FPANE_FREObjectToNSArrayOfUIImage(FREObject object) {
     
     uint32_t arrayLength;
@@ -132,6 +134,8 @@ NSArray* AirGameCenter_FPANE_FREObjectToNSArrayOfUIImage(FREObject object) {
     
     return [NSArray arrayWithArray:mutableArray];
 }
+#endif
+
 
 NSDictionary* AirGameCenter_FPANE_FREObjectsToNSDictionaryOfNSString(FREObject keys, FREObject values) {
     
@@ -229,6 +233,7 @@ FREObject AirGameCenter_FPANE_CreateError(NSString* error, NSInteger* id) {
     return ret;
 }
 
+#if TARGET_OS_IPHONE
 FREObject AirGameCenter_FPANE_UIImageToFREBitmapData(UIImage *image) {
     
     // create bitmap data
@@ -314,3 +319,90 @@ FREObject AirGameCenter_FPANE_UIImageToFREBitmapData(UIImage *image) {
     
     return nil;
 }
+#elif TARGET_OS_OSX
+FREObject AirGameCenter_FPANE_NSImageToFREBitmapData(NSImage *image) {
+    
+    // create bitmap data
+    FREObject widthObj;
+    FRENewObjectFromInt32(image.size.width, &widthObj);
+    FREObject heightObj;
+    FRENewObjectFromInt32(image.size.height, &heightObj);
+    FREObject transparent;
+    FRENewObjectFromBool( 0, &transparent);
+    FREObject fillColor;
+    FRENewObjectFromUint32( 0x000000, &fillColor);
+    
+    FREObject params[4] = { widthObj, heightObj, transparent, fillColor };
+    
+    FREObject obj;
+    FRENewObject((uint8_t *)"flash.display.BitmapData", 4, params, &obj , NULL);
+    
+    FREResult result;
+    FREBitmapData bitmapData;
+    result = FREAcquireBitmapData(obj, &bitmapData);
+    if (result != FRE_OK) {
+        return nil;
+    }
+    
+    // Pull the raw pixels values out of the image data
+    CGImageRef imageRef = [image CGImageForProposedRect:nil context:nil hints:nil];
+    size_t width = CGImageGetWidth(imageRef);
+    size_t height = CGImageGetHeight(imageRef);
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    if(colorSpace == NULL) {
+        return nil;
+    }
+    unsigned char *rawData = malloc(height * width * 4);
+    size_t bytesPerPixel = 4;
+    size_t bytesPerRow = bytesPerPixel * width;
+    size_t bitsPerComponent = 8;
+    CGContextRef context = CGBitmapContextCreate(rawData, width, height, bitsPerComponent, bytesPerRow, colorSpace, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
+    if(context == NULL) {
+        return nil;
+    }
+    CGColorSpaceRelease(colorSpace);
+    CGContextDrawImage(context, CGRectMake(0, 0, width, height), imageRef);
+    CGContextRelease(context);
+    
+    // Pixels are now it rawData in the format RGBA8888
+    // Now loop over each pixel to write them into the AS3 BitmapData memory
+    int x, y;
+    // There may be extra pixels in each row due to the value of lineStride32.
+    // We'll skip over those as needed.
+    int offset = bitmapData.lineStride32 - bitmapData.width;
+    size_t offset2 = bytesPerRow - bitmapData.width*4;
+    int byteIndex = 0;
+    uint32_t *bitmapDataPixels = bitmapData.bits32;
+    for (y=0; y<bitmapData.height; y++)
+    {
+        for (x=0; x<bitmapData.width; x++, bitmapDataPixels++, byteIndex += 4)
+        {
+            // Values are currently in RGBA7777, so each color value is currently a separate number.
+            int red     = (rawData[byteIndex]);
+            int green   = (rawData[byteIndex + 1]);
+            int blue    = (rawData[byteIndex + 2]);
+            int alpha   = (rawData[byteIndex + 3]);
+            
+            // Combine values into ARGB32
+            *bitmapDataPixels = (alpha << 24) | (red << 16) | (green << 8) | blue;
+        }
+        
+        bitmapDataPixels += offset;
+        byteIndex += offset2;
+    }
+    
+    // Free the memory we allocated
+    free(rawData);
+    // Tell Flash which region of the BitmapData changes (all of it here)
+    result = FREInvalidateBitmapDataRect(obj, 0, 0, bitmapData.width, bitmapData.height);
+    // Release our control over the BitmapData
+    if(result == FRE_OK) {
+        result = FREReleaseBitmapData(obj);
+        return obj;
+    } else {
+        return nil;
+    }
+    
+    return nil;
+}
+#endif

@@ -14,7 +14,12 @@
  */
 #import <Foundation/Foundation.h>
 #import "FlashRuntimeExtensions.h"
-#import <UIKit/UIKit.h>
+#if TARGET_OS_IPHONE
+    #import <UIKit/UIKit.h>
+#elif TARGET_OS_OSX
+    #import <AppKit/AppKit.h>
+    #import <Cocoa/Cocoa.h>
+#endif
 
 #define DEFINE_ANE_FUNCTION(fn) FREObject fn(FREContext context, void* functionData, uint32_t argc, FREObject argv[])
 #define MAP_FUNCTION(fn, data) { (const uint8_t*)(#fn), (data), &(fn) }
@@ -36,7 +41,11 @@ FREObject AirGameCenter_FPANE_IntToFREObject(NSInteger i);
 FREObject AirGameCenter_FPANE_DoubleToFREObject(double d);
 FREObject AirGameCenter_FPANE_NSStringToFREObject(NSString* string);
 FREObject AirGameCenter_FPANE_CreateError(NSString* error, NSInteger* id);
+#if TARGET_OS_IPHONE
 FREObject AirGameCenter_FPANE_UIImageToFREBitmapData(UIImage *image);
-
 UIImage* AirGameCenter_FPANE_FREBitmapDataToUIImage(FREObject object);
+#elif TARGET_OS_OSX
+FREObject AirGameCenter_FPANE_NSImageToFREBitmapData(NSImage *image);
+#endif
+
 NSArray* AirGameCenter_FPANE_FREObjectToNSArrayOfUIImage(FREObject object);

@@ -11,6 +11,14 @@
 		A2F5432D1F20ED7C00474A1F /* AirGameCenter.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = A2F5432A1F20ED7B00474A1F /* AirGameCenter.h */; };
 		A2F543361F20EDDC00474A1F /* FPANEUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = A2F543351F20EDDC00474A1F /* FPANEUtils.m */; };
 		C46E3BDCE7664EFC9863AF36 /* libPods-AirGameCenter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD36B6EE89C70E51E2470E75 /* libPods-AirGameCenter.a */; };
+		FA3D4B4226F0F6D400AD1509 /* Adobe AIR in Frameworks */ = {isa = PBXBuildFile; fileRef = FA3D4B4026F0F6D400AD1509 /* Adobe AIR */; };
+		FA3D4B4326F0F6D400AD1509 /* Adobe AIR_64 in Frameworks */ = {isa = PBXBuildFile; fileRef = FA3D4B4126F0F6D400AD1509 /* Adobe AIR_64 */; };
+		FA3D4B4426F0F6E000AD1509 /* AirGameCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = A2F5432B1F20ED7C00474A1F /* AirGameCenter.m */; };
+		FA3D4B4526F0F6FF00AD1509 /* FlashRuntimeExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = A2F543331F20EDDC00474A1F /* FlashRuntimeExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FA3D4B4626F0F6FF00AD1509 /* FPANEUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = A2F543341F20EDDC00474A1F /* FPANEUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FA3D4B4726F0F6FF00AD1509 /* AirGameCenter.m in Headers */ = {isa = PBXBuildFile; fileRef = A2F5432B1F20ED7C00474A1F /* AirGameCenter.m */; settings = {ATTRIBUTES = (Public, ); }; };
+		FA3D4B4826F0F6FF00AD1509 /* Constants.h in Headers */ = {isa = PBXBuildFile; fileRef = A2F543371F20EFDC00474A1F /* Constants.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FA3D4B4926F0F71100AD1509 /* FPANEUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = A2F543351F20EDDC00474A1F /* FPANEUtils.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -37,6 +45,11 @@
 		A2F543351F20EDDC00474A1F /* FPANEUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPANEUtils.m; sourceTree = "<group>"; };
 		A2F543371F20EFDC00474A1F /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		AD36B6EE89C70E51E2470E75 /* libPods-AirGameCenter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AirGameCenter.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA3D4B3826F0F67100AD1509 /* AirGameCenterMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AirGameCenterMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA3D4B3A26F0F67100AD1509 /* AirGameCenterMac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AirGameCenterMac.h; sourceTree = "<group>"; };
+		FA3D4B3B26F0F67100AD1509 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FA3D4B4026F0F6D400AD1509 /* Adobe AIR */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "Adobe AIR"; path = "../../../SDKs/AIRSDK_33.1.1.345/runtimes/air/mac/Adobe AIR.framework/Versions/1.0/Adobe AIR"; sourceTree = "<group>"; };
+		FA3D4B4126F0F6D400AD1509 /* Adobe AIR_64 */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "Adobe AIR_64"; path = "../../../SDKs/AIRSDK_33.1.1.345/runtimes/air/mac/Adobe AIR.framework/Versions/1.0/Adobe AIR_64"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +58,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				C46E3BDCE7664EFC9863AF36 /* libPods-AirGameCenter.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA3D4B3526F0F67100AD1509 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA3D4B4226F0F6D400AD1509 /* Adobe AIR in Frameworks */,
+				FA3D4B4326F0F6D400AD1509 /* Adobe AIR_64 in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,6 +89,7 @@
 				A2F543341F20EDDC00474A1F /* FPANEUtils.h */,
 				A2F543351F20EDDC00474A1F /* FPANEUtils.m */,
 				A2F543291F20ED7A00474A1F /* AirGameCenter */,
+				FA3D4B3926F0F67100AD1509 /* AirGameCenterMac */,
 				A2F543281F20ED7A00474A1F /* Products */,
 				035019B099F2CACF868E7D22 /* Pods */,
 				C5745C6047303DA7254243C1 /* Frameworks */,
@@ -77,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				A2F543271F20ED7A00474A1F /* libAirGameCenter.a */,
+				FA3D4B3826F0F67100AD1509 /* AirGameCenterMac.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -94,12 +118,37 @@
 		C5745C6047303DA7254243C1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FA3D4B4026F0F6D400AD1509 /* Adobe AIR */,
+				FA3D4B4126F0F6D400AD1509 /* Adobe AIR_64 */,
 				AD36B6EE89C70E51E2470E75 /* libPods-AirGameCenter.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		FA3D4B3926F0F67100AD1509 /* AirGameCenterMac */ = {
+			isa = PBXGroup;
+			children = (
+				FA3D4B3A26F0F67100AD1509 /* AirGameCenterMac.h */,
+				FA3D4B3B26F0F67100AD1509 /* Info.plist */,
+			);
+			path = AirGameCenterMac;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		FA3D4B3326F0F67100AD1509 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA3D4B4526F0F6FF00AD1509 /* FlashRuntimeExtensions.h in Headers */,
+				FA3D4B4626F0F6FF00AD1509 /* FPANEUtils.h in Headers */,
+				FA3D4B4726F0F6FF00AD1509 /* AirGameCenter.m in Headers */,
+				FA3D4B4826F0F6FF00AD1509 /* Constants.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		A2F543261F20ED7900474A1F /* AirGameCenter */ = {
@@ -121,6 +170,24 @@
 			productReference = A2F543271F20ED7A00474A1F /* libAirGameCenter.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		FA3D4B3726F0F67100AD1509 /* AirGameCenterMac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA3D4B3F26F0F67100AD1509 /* Build configuration list for PBXNativeTarget "AirGameCenterMac" */;
+			buildPhases = (
+				FA3D4B3326F0F67100AD1509 /* Headers */,
+				FA3D4B3426F0F67100AD1509 /* Sources */,
+				FA3D4B3526F0F67100AD1509 /* Frameworks */,
+				FA3D4B3626F0F67100AD1509 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AirGameCenterMac;
+			productName = AirGameCenterMac;
+			productReference = FA3D4B3826F0F67100AD1509 /* AirGameCenterMac.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -133,6 +200,10 @@
 					A2F543261F20ED7900474A1F = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = HWKC8H7H6U;
+						ProvisioningStyle = Automatic;
+					};
+					FA3D4B3726F0F67100AD1509 = {
+						CreatedOnToolsVersion = 12.5.1;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -151,9 +222,20 @@
 			projectRoot = "";
 			targets = (
 				A2F543261F20ED7900474A1F /* AirGameCenter */,
+				FA3D4B3726F0F67100AD1509 /* AirGameCenterMac */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FA3D4B3626F0F67100AD1509 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		20274C4426C4ABAD5194A2AB /* [CP] Copy Pods Resources */ = {
@@ -195,6 +277,15 @@
 			files = (
 				A2F543361F20EDDC00474A1F /* FPANEUtils.m in Sources */,
 				A2F5432C1F20ED7C00474A1F /* AirGameCenter.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA3D4B3426F0F67100AD1509 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA3D4B4926F0F71100AD1509 /* FPANEUtils.m in Sources */,
+				FA3D4B4426F0F6E000AD1509 /* AirGameCenter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,6 +406,83 @@
 			};
 			name = Release;
 		};
+		FA3D4B3D26F0F67100AD1509 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				EXCLUDED_ARCHS = arm64;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = AirGameCenterMac/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.freshplanet.AirGameCenterMac;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		FA3D4B3E26F0F67100AD1509 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				EXCLUDED_ARCHS = arm64;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = AirGameCenterMac/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.freshplanet.AirGameCenterMac;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -332,6 +500,15 @@
 			buildConfigurations = (
 				A2F543311F20ED7C00474A1F /* Debug */,
 				A2F543321F20ED7C00474A1F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FA3D4B3F26F0F67100AD1509 /* Build configuration list for PBXNativeTarget "AirGameCenterMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA3D4B3D26F0F67100AD1509 /* Debug */,
+				FA3D4B3E26F0F67100AD1509 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
