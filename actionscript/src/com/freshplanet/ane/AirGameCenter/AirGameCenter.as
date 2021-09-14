@@ -40,7 +40,7 @@ import flash.events.EventDispatcher;
 
 		/** supported on iOS devices. */
 		public static function get isSupported() : Boolean {
-			return isIOS;
+			return isIOSOrMacOS;
 		}
 
 		/**
@@ -269,8 +269,9 @@ import flash.events.EventDispatcher;
 			if (_logEnabled) trace("[AirGameCenter] " + message);
 		}
 
-		private static function get isIOS():Boolean {
-			return Capabilities.manufacturer.indexOf("iOS") > -1 && Capabilities.os.indexOf("x86_64") < 0 && Capabilities.os.indexOf("i386") < 0;
+
+		private static function get isIOSOrMacOS():Boolean {
+			return Capabilities.os.indexOf("Mac OS") > -1 || (Capabilities.manufacturer.indexOf("iOS") > -1 && Capabilities.os.indexOf("x86_64") < 0 && Capabilities.os.indexOf("i386") < 0);
 		}
 
 		private function parseRecentPlayersJSON(jsonString:String):Vector.<AirGameCenterPlayer> {
