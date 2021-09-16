@@ -169,6 +169,12 @@ import flash.events.EventDispatcher;
 				_context.call("loadPlayerPhoto", playerId);
 		}
 
+		public function showDashboard() : void
+		{
+			if(isSupported)
+				_context.call("showDashboard");
+		}
+
 		// --------------------------------------------------------------------------------------//
 		//																						 //
 		// 									 	PRIVATE API										 //

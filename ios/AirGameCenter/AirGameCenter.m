@@ -655,6 +655,40 @@ DEFINE_ANE_FUNCTION(loadPlayerPhoto) {
     return nil;
 }
 
+DEFINE_ANE_FUNCTION(showDashboard) {
+    
+    AirGameCenter* controller = GetAirGameCenterContextNativeData(context);
+    
+    if (!controller)
+        return AirGameCenter_FPANE_CreateError(@"context's AirGameCenter is null", 0);
+    
+    @try {
+        
+        GKGameCenterViewController *achievementViewController = [[GKGameCenterViewController alloc] init];
+        achievementViewController.viewState = GKGameCenterViewControllerStateDashboard;
+        achievementViewController.gameCenterDelegate = controller;
+#if TARGET_OS_IPHONE
+        UIViewController* rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+        [rootViewController presentViewController:achievementViewController animated:true completion:nil];
+#elif TARGET_OS_OSX
+        GKDialogController *sdc = [GKDialogController sharedDialogController];
+        sdc.parentWindow = [NSApp keyWindow];
+        [sdc presentViewController:achievementViewController];
+        
+        
+        
+#endif
+        
+    }
+    @catch (NSException *exception) {
+        [controller sendLog:[@"Exception occured while trying to showDashboard: " stringByAppendingString:exception.reason]];
+        
+    }
+    
+    return nil;
+}
+
+
 #pragma mark - ANE setup
 
 void AirGameCenterContextInitializer(void* extData, const uint8_t* ctxType, FREContext ctx,
@@ -676,6 +710,7 @@ void AirGameCenterContextInitializer(void* extData, const uint8_t* ctxType, FREC
         MAP_FUNCTION(reportAchievement, NULL),
         MAP_FUNCTION(loadRecentPlayers, NULL),
         MAP_FUNCTION(loadPlayerPhoto, NULL),
+        MAP_FUNCTION(showDashboard, NULL)
     };
     
     *numFunctionsToTest = sizeof(functions) / sizeof(FRENamedFunction);
