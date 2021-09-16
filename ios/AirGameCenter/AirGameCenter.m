@@ -73,7 +73,7 @@
 #if TARGET_OS_IPHONE
     [gameCenterViewController dismissViewControllerAnimated:true completion:nil];
 #elif TARGET_OS_OSX
-    [gameCenterViewController dismissViewController:gameCenterViewController];
+    [[GKDialogController sharedDialogController] dismiss:gameCenterViewController];
 #endif
 }
 
@@ -224,7 +224,7 @@ DEFINE_ANE_FUNCTION(authenticateLocalPlayer) {
                 if (viewController != nil)
                 {
                     
-                    NSWindowController* rootViewController = [[[NSApplication sharedApplication] mainWindow] windowController];
+                    NSWindowController* rootViewController = [[[NSApplication sharedApplication] keyWindow] windowController];
 
                     [rootViewController.contentViewController presentViewControllerAsModalWindow:viewController];
                 
@@ -402,8 +402,9 @@ DEFINE_ANE_FUNCTION(showLeaderboard) {
         UIViewController* rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
         [rootViewController presentViewController:leaderboardViewController animated:true completion:nil];
 #elif TARGET_OS_OSX
-        NSWindowController* rootViewController = [[[NSApplication sharedApplication] mainWindow] windowController];
-        [rootViewController.contentViewController presentViewControllerAsModalWindow:leaderboardViewController];
+        GKDialogController *sdc = [GKDialogController sharedDialogController];
+        sdc.parentWindow = [NSApp keyWindow];
+        [sdc presentViewController:leaderboardViewController];
 #endif
         
     }
@@ -431,8 +432,12 @@ DEFINE_ANE_FUNCTION(showAchievements) {
         UIViewController* rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
         [rootViewController presentViewController:achievementViewController animated:true completion:nil];
 #elif TARGET_OS_OSX
-        NSWindowController* rootViewController = [[[NSApplication sharedApplication] mainWindow] windowController];
-        [rootViewController.contentViewController presentViewControllerAsModalWindow:achievementViewController];
+        GKDialogController *sdc = [GKDialogController sharedDialogController];
+        sdc.parentWindow = [NSApp keyWindow];
+        [sdc presentViewController:achievementViewController];
+        
+        
+        
 #endif
         
     }
