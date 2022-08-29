@@ -169,10 +169,31 @@ import flash.events.EventDispatcher;
 				_context.call("loadPlayerPhoto", playerId);
 		}
 
+		/**
+		 * Show GameCenter dashboard
+		 */
 		public function showDashboard() : void
 		{
 			if(isSupported)
 				_context.call("showDashboard");
+		}
+
+		/**
+		 * Show GameCenter access point
+		 */
+		public function showAccessPoint() : void
+		{
+			if(isSupported)
+				_context.call("showAccessPoint");
+		}
+
+		/**
+		 * Hide GameCenter access point
+		 */
+		public function hideAccessPoint() : void
+		{
+			if(isSupported)
+				_context.call("hideAccessPoint");
 		}
 
 		// --------------------------------------------------------------------------------------//

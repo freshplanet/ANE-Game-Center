@@ -688,6 +688,24 @@ DEFINE_ANE_FUNCTION(showDashboard) {
     return nil;
 }
 
+DEFINE_ANE_FUNCTION(showAccessPoint) {
+    if (@available(iOS 14.0, macOS 11.0, *)) {
+        [GKAccessPoint shared].showHighlights = true;
+        [GKAccessPoint shared].location = GKAccessPointLocationTopTrailing;
+        [[GKAccessPoint shared] setActive:true];
+    }
+    
+    return nil;
+}
+
+DEFINE_ANE_FUNCTION(hideAccessPoint) {
+    if (@available(iOS 14.0, macOS 11.0, *)) {
+        [[GKAccessPoint shared] setActive:false];
+    }
+    
+    return nil;
+}
+
 
 #pragma mark - ANE setup
 
@@ -710,7 +728,9 @@ void AirGameCenterContextInitializer(void* extData, const uint8_t* ctxType, FREC
         MAP_FUNCTION(reportAchievement, NULL),
         MAP_FUNCTION(loadRecentPlayers, NULL),
         MAP_FUNCTION(loadPlayerPhoto, NULL),
-        MAP_FUNCTION(showDashboard, NULL)
+        MAP_FUNCTION(showDashboard, NULL),
+        MAP_FUNCTION(showAccessPoint, NULL),
+        MAP_FUNCTION(hideAccessPoint, NULL)
     };
     
     *numFunctionsToTest = sizeof(functions) / sizeof(FRENamedFunction);
