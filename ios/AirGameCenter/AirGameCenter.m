@@ -690,7 +690,7 @@ DEFINE_ANE_FUNCTION(showDashboard) {
 
 DEFINE_ANE_FUNCTION(showAccessPoint) {
     if (@available(iOS 14.0, macOS 11.0, *)) {
-        [GKAccessPoint shared].showHighlights = true;
+        [GKAccessPoint shared].showHighlights = false;
         [GKAccessPoint shared].location = GKAccessPointLocationTopTrailing;
         [[GKAccessPoint shared] setActive:true];
     }
