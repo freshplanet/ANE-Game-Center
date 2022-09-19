@@ -12,9 +12,7 @@
 		A2F543361F20EDDC00474A1F /* FPANEUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = A2F543351F20EDDC00474A1F /* FPANEUtils.m */; };
 		C46E3BDCE7664EFC9863AF36 /* libPods-AirGameCenter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD36B6EE89C70E51E2470E75 /* libPods-AirGameCenter.a */; };
 		FA02E5C928B6790A00098D40 /* Adobe AIR in Frameworks */ = {isa = PBXBuildFile; fileRef = FA02E5C728B6790A00098D40 /* Adobe AIR */; };
-		FA02E5CA28B6790A00098D40 /* Adobe AIR in Embed Libraries */ = {isa = PBXBuildFile; fileRef = FA02E5C728B6790A00098D40 /* Adobe AIR */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		FA02E5CB28B6790A00098D40 /* Adobe AIR_64 in Frameworks */ = {isa = PBXBuildFile; fileRef = FA02E5C828B6790A00098D40 /* Adobe AIR_64 */; };
-		FA02E5CC28B6790A00098D40 /* Adobe AIR_64 in Embed Libraries */ = {isa = PBXBuildFile; fileRef = FA02E5C828B6790A00098D40 /* Adobe AIR_64 */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		FA3D4B4426F0F6E000AD1509 /* AirGameCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = A2F5432B1F20ED7C00474A1F /* AirGameCenter.m */; };
 		FA3D4B4526F0F6FF00AD1509 /* FlashRuntimeExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = A2F543331F20EDDC00474A1F /* FlashRuntimeExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA3D4B4626F0F6FF00AD1509 /* FPANEUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = A2F543341F20EDDC00474A1F /* FPANEUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -32,18 +30,6 @@
 			files = (
 				A2F5432D1F20ED7C00474A1F /* AirGameCenter.h in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FA02E5CD28B6790A00098D40 /* Embed Libraries */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				FA02E5CC28B6790A00098D40 /* Adobe AIR_64 in Embed Libraries */,
-				FA02E5CA28B6790A00098D40 /* Adobe AIR in Embed Libraries */,
-			);
-			name = "Embed Libraries";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -196,7 +182,6 @@
 				FA3D4B3426F0F67100AD1509 /* Sources */,
 				FA3D4B3526F0F67100AD1509 /* Frameworks */,
 				FA3D4B3626F0F67100AD1509 /* Resources */,
-				FA02E5CD28B6790A00098D40 /* Embed Libraries */,
 			);
 			buildRules = (
 			);
