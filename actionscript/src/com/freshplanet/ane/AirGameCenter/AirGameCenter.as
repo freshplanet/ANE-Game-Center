@@ -170,6 +170,15 @@ import flash.events.EventDispatcher;
 		}
 
 		/**
+		 * Load local player photo
+		 */
+		public function loadLocalPlayerPhoto() : void
+		{
+			if(isSupported)
+				_context.call("loadLocalPlayerPhoto");
+		}
+
+		/**
 		 * Show GameCenter dashboard
 		 */
 		public function showDashboard() : void

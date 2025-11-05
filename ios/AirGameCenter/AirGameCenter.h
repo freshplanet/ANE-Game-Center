@@ -29,3 +29,5 @@ void AirGameCenterContextInitializer(void* extData, const uint8_t* ctxType, FREC
 void AirGameCenterContextFinalizer(FREContext ctx);
 void AirGameCenterInitializer(void** extDataToSet, FREContextInitializer* ctxInitializerToSet, FREContextFinalizer* ctxFinalizerToSet);
 void AirGameCenterFinalizer(void *extData);
+
+NSString* createPhotoLoadErrorString(NSString *playerId, NSString *error);
