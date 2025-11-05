@@ -45,6 +45,43 @@
     FREDispatchStatusEventAsync(_context, (const uint8_t*)[code UTF8String], (const uint8_t*)[level UTF8String]);
 }
 
+- (void) loadPhoto:(GKPlayer *)player {
+#if TARGET_OS_IPHONE
+    [player loadPhotoForSize:GKPhotoSizeNormal withCompletionHandler:
+     ^(UIImage *photo, NSError *error) {
+         if(error != nil) {
+             [self sendEvent:kAirGameCenterPhotoEvent_photoLoadError level:createPhotoLoadErrorString(player.gamePlayerID, error.localizedDescription)];
+             return;
+         }
+         
+         if (photo != nil) {
+             [self storePlayerPhoto:player.gamePlayerID playerPhoto:photo];
+             [self sendEvent:kPlayerPhotoLoadComplete level:player.gamePlayerID];
+         }
+         else {
+             [self sendEvent:kAirGameCenterPhotoEvent_photoLoadError level:createPhotoLoadErrorString(player.gamePlayerID, @"Player has no photo")];
+         }
+         
+         
+     }];
+#elif TARGET_OS_OSX
+    [player loadPhotoForSize:GKPhotoSizeNormal withCompletionHandler:^(NSImage * _Nullable photo, NSError * _Nullable error) {
+        if(error != nil) {
+            [self sendEvent:kAirGameCenterPhotoEvent_photoLoadError level:createPhotoLoadErrorString(player.gamePlayerID, error.localizedDescription)];
+            return;
+        }
+        
+        if (photo != nil) {
+            [self storePlayerPhoto:player.gamePlayerID playerPhoto:photo];
+            [self sendEvent:kPlayerPhotoLoadComplete level:player.gamePlayerID];
+        }
+        else {
+            [self sendEvent:kAirGameCenterPhotoEvent_photoLoadError level:createPhotoLoadErrorString(player.gamePlayerID, @"Player has no photo")];
+        }
+    }];
+#endif
+}
+
 #if TARGET_OS_IPHONE
 - (void) storePlayerPhoto:(NSString*)playerId playerPhoto:(UIImage *)photo
 {
@@ -103,7 +140,7 @@ NSString* createPhotoLoadErrorString(NSString *playerId, NSString *error){
 NSDictionary* playerToDictionary (GKPlayer *player){
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    [dict setValue:player.playerID forKey:@"id"];
+    [dict setValue:player.gamePlayerID forKey:@"id"];
     [dict setValue:player.alias forKey:@"alias"];
     [dict setValue:player.displayName forKey:@"displayName"];
     
@@ -425,20 +462,11 @@ DEFINE_ANE_FUNCTION(showAchievements) {
     
     @try {
         
-        GKGameCenterViewController *achievementViewController = [[GKGameCenterViewController alloc] init];
-        achievementViewController.viewState = GKGameCenterViewControllerStateAchievements;
-        achievementViewController.gameCenterDelegate = controller;
-#if TARGET_OS_IPHONE
-        UIViewController* rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
-        [rootViewController presentViewController:achievementViewController animated:true completion:nil];
-#elif TARGET_OS_OSX
-        GKDialogController *sdc = [GKDialogController sharedDialogController];
-        sdc.parentWindow = [NSApp keyWindow];
-        [sdc presentViewController:achievementViewController];
-        
-        
-        
-#endif
+        if (@available(iOS 14.0, macOS 11.0, *)) {
+            [[GKAccessPoint shared] triggerAccessPointWithState:GKGameCenterViewControllerStateAchievements handler:^{
+                
+            }];
+        }
         
     }
     @catch (NSException *exception) {
@@ -492,22 +520,19 @@ DEFINE_ANE_FUNCTION(reportScore) {
     @try {
         NSString *leaderboardId = AirGameCenter_FPANE_FREObjectToNSString((argv[0]));
         NSInteger score = AirGameCenter_FPANE_FREObjectToInt((argv[1]));
-       
-        GKScore *gkScore = [[GKScore alloc] initWithLeaderboardIdentifier:leaderboardId];
-        [gkScore setValue:score];
         
-        [GKScore reportScores:@[gkScore] withCompletionHandler:^(NSError * _Nullable error) {
-
-            if (error != nil) {
-                // dispatch error
-                [controller sendEvent:kAirGameCenterEvent_scoreReportFailed level:error.localizedDescription];
-                return;
-            }
-            
-            // dispatch success
-            [controller sendEvent:kAirGameCenterEvent_scoreReported];
-            
-        }];
+        if (@available(iOS 14.0, macOS 11.0, *)) {
+            [GKLeaderboard submitScore:score context:0 player:GKLocalPlayer.local leaderboardIDs:@[leaderboardId] completionHandler:^(NSError * _Nullable error) {
+                if (error != nil) {
+                    // dispatch error
+                    [controller sendEvent:kAirGameCenterEvent_scoreReportFailed level:error.localizedDescription];
+                    return;
+                }
+                
+                // dispatch success
+                [controller sendEvent:kAirGameCenterEvent_scoreReported];
+            }];
+        }
         
     }
     @catch (NSException *exception) {
@@ -595,6 +620,7 @@ DEFINE_ANE_FUNCTION(loadPlayerPhoto) {
     
     @try {
         NSString *playerID = AirGameCenter_FPANE_FREObjectToNSString((argv[0]));
+        
         [GKPlayer loadPlayersForIdentifiers:@[playerID] withCompletionHandler:^(NSArray<GKPlayer *> * _Nullable players, NSError * _Nullable error) {
             
             if (error != nil) {
@@ -604,40 +630,7 @@ DEFINE_ANE_FUNCTION(loadPlayerPhoto) {
            
             if(players.count > 0) {
                 GKPlayer *player = players[0];
-#if TARGET_OS_IPHONE
-                [player loadPhotoForSize:GKPhotoSizeNormal withCompletionHandler:
-                 ^(UIImage *photo, NSError *error) {
-                     if(error != nil) {
-                         [controller sendEvent:kAirGameCenterPhotoEvent_photoLoadError level:createPhotoLoadErrorString(playerID, error.localizedDescription)];
-                         return;
-                     }
-                     
-                     if (photo != nil) {
-                         [controller storePlayerPhoto:player.playerID playerPhoto:photo];
-                         [controller sendEvent:kPlayerPhotoLoadComplete level:player.playerID];
-                     }
-                     else {
-                         [controller sendEvent:kAirGameCenterPhotoEvent_photoLoadError level:createPhotoLoadErrorString(playerID, @"Player has no photo")];
-                     }
-                     
-                     
-                 }];
-#elif TARGET_OS_OSX
-                [player loadPhotoForSize:GKPhotoSizeNormal withCompletionHandler:^(NSImage * _Nullable photo, NSError * _Nullable error) {
-                    if(error != nil) {
-                        [controller sendEvent:kAirGameCenterPhotoEvent_photoLoadError level:createPhotoLoadErrorString(playerID, error.localizedDescription)];
-                        return;
-                    }
-                    
-                    if (photo != nil) {
-                        [controller storePlayerPhoto:player.playerID playerPhoto:photo];
-                        [controller sendEvent:kPlayerPhotoLoadComplete level:player.playerID];
-                    }
-                    else {
-                        [controller sendEvent:kAirGameCenterPhotoEvent_photoLoadError level:createPhotoLoadErrorString(playerID, @"Player has no photo")];
-                    }
-                }];
-#endif
+                [controller loadPhoto:player];
             }
             else {
                 [controller sendEvent:kAirGameCenterPhotoEvent_photoLoadError level:createPhotoLoadErrorString(playerID, error.localizedDescription)];
@@ -646,6 +639,25 @@ DEFINE_ANE_FUNCTION(loadPlayerPhoto) {
             
         }];
         
+    }
+    @catch (NSException *exception) {
+        [controller sendLog:[@"Exception occured while trying to loadPlayerPhoto: " stringByAppendingString:exception.reason]];
+        
+    }
+    
+    return nil;
+}
+
+DEFINE_ANE_FUNCTION(loadLocalPlayerPhoto) {
+    
+    AirGameCenter* controller = GetAirGameCenterContextNativeData(context);
+    
+    if (!controller)
+        return AirGameCenter_FPANE_CreateError(@"context's AirGameCenter is null", 0);
+    
+    @try {
+        GKPlayer *player = [GKLocalPlayer localPlayer];
+        [controller loadPhoto:player];
     }
     @catch (NSException *exception) {
         [controller sendLog:[@"Exception occured while trying to loadPlayerPhoto: " stringByAppendingString:exception.reason]];
@@ -664,21 +676,12 @@ DEFINE_ANE_FUNCTION(showDashboard) {
     
     @try {
         
-        GKGameCenterViewController *achievementViewController = [[GKGameCenterViewController alloc] init];
-        achievementViewController.viewState = GKGameCenterViewControllerStateDashboard;
-        achievementViewController.gameCenterDelegate = controller;
-#if TARGET_OS_IPHONE
-        UIViewController* rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
-        [rootViewController presentViewController:achievementViewController animated:true completion:nil];
-#elif TARGET_OS_OSX
-        GKDialogController *sdc = [GKDialogController sharedDialogController];
-        sdc.parentWindow = [NSApp keyWindow];
-        [sdc presentViewController:achievementViewController];
-        
-        
-        
-#endif
-        
+        if (@available(iOS 14.0, macOS 11.0, *)) {
+            [[GKAccessPoint shared] triggerAccessPointWithState:GKGameCenterViewControllerStateDashboard handler:^{
+                
+            }];
+        }
+
     }
     @catch (NSException *exception) {
         [controller sendLog:[@"Exception occured while trying to showDashboard: " stringByAppendingString:exception.reason]];
@@ -732,6 +735,7 @@ void AirGameCenterContextInitializer(void* extData, const uint8_t* ctxType, FREC
         MAP_FUNCTION(reportAchievement, NULL),
         MAP_FUNCTION(loadRecentPlayers, NULL),
         MAP_FUNCTION(loadPlayerPhoto, NULL),
+        MAP_FUNCTION(loadLocalPlayerPhoto, NULL),
         MAP_FUNCTION(showDashboard, NULL),
         MAP_FUNCTION(showAccessPoint, NULL),
         MAP_FUNCTION(hideAccessPoint, NULL)
