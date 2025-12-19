@@ -579,6 +579,29 @@ DEFINE_ANE_FUNCTION(reportAchievement) {
     return nil;
 }
 
+DEFINE_ANE_FUNCTION(resetAchievements) {
+    
+    AirGameCenter* controller = GetAirGameCenterContextNativeData(context);
+    
+    if (!controller)
+        return AirGameCenter_FPANE_CreateError(@"context's AirGameCenter is null", 0);
+    
+    @try {
+        [GKAchievement resetAchievementsWithCompletionHandler:^(NSError * _Nullable error) {
+            if (error != nil) {
+                [controller sendEvent:kAirGameCenterEvent_achievementsResetFailed level:error.localizedDescription];
+            } else {
+                [controller sendEvent:kAirGameCenterEvent_achievementsReset];
+            }
+        }];
+    }
+    @catch (NSException *exception) {
+        [controller sendLog:[@"Exception occurred while trying to resetAchievements: " stringByAppendingString:exception.reason]];
+    }
+    
+    return nil;
+}
+
 DEFINE_ANE_FUNCTION(loadRecentPlayers) {
     
     AirGameCenter* controller = GetAirGameCenterContextNativeData(context);
@@ -733,6 +756,7 @@ void AirGameCenterContextInitializer(void* extData, const uint8_t* ctxType, FREC
         MAP_FUNCTION(showAchievements, NULL),
         MAP_FUNCTION(loadAchievements, NULL),
         MAP_FUNCTION(reportAchievement, NULL),
+        MAP_FUNCTION(resetAchievements, NULL),
         MAP_FUNCTION(loadRecentPlayers, NULL),
         MAP_FUNCTION(loadPlayerPhoto, NULL),
         MAP_FUNCTION(loadLocalPlayerPhoto, NULL),

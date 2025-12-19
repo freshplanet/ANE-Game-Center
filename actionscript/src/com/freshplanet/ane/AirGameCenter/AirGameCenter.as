@@ -151,6 +151,12 @@ import flash.events.EventDispatcher;
 				_context.call("reportAchievement", achievementId, showCompletionBanner, percentComplete);
 		}
 
+		public function resetAchievements() : void
+		{
+			if(isSupported)
+				_context.call("resetAchievements");
+		}
+
 		/**
 		 * A recent player is someone that you have played a game with or is a legacy game center friend.
 		 */
@@ -287,6 +293,12 @@ import flash.events.EventDispatcher;
 			}
 			else if (event.code == AirGameCenterEvent.ACHIEVEMENT_REPORT_FAILED) {
 				this.dispatchEvent(new AirGameCenterEvent(AirGameCenterEvent.ACHIEVEMENT_REPORT_FAILED, event.level));
+			}
+			else if (event.code == AirGameCenterEvent.ACHIEVEMENTS_RESET) {
+				this.dispatchEvent(new AirGameCenterEvent(AirGameCenterEvent.ACHIEVEMENTS_RESET));
+			}
+			else if (event.code == AirGameCenterEvent.ACHIEVEMENTS_RESET_FAILED) {
+				this.dispatchEvent(new AirGameCenterEvent(AirGameCenterEvent.ACHIEVEMENTS_RESET_FAILED, event.level));
 			}
 			else if (event.code == AirGameCenterRecentPlayersEvent.LOAD_COMPLETE) {
 				var players:Vector.<AirGameCenterPlayer> = parseRecentPlayersJSON(event.level);

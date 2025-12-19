@@ -27,6 +27,9 @@ public class AirGameCenterEvent extends Event {
 	public static const ACHIEVEMENT_REPORTED:String = "AirGameCenterEvent_achievementReported";
 	public static const ACHIEVEMENT_REPORT_FAILED:String = "AirGameCenterEvent_achievementReportFailed";
 
+	public static const ACHIEVEMENTS_RESET:String = "AirGameCenterEvent_achievementsReset";
+	public static const ACHIEVEMENTS_RESET_FAILED:String = "AirGameCenterEvent_achievementsResetFailed";
+
 	private var _error:String;
 
 	public function AirGameCenterEvent(type:String, error:String = null, bubbles:Boolean = false, cancelable:Boolean = false) {

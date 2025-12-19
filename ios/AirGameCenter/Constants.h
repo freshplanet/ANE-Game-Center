@@ -25,6 +25,8 @@ static NSString *const kAirGameCenterEvent_scoreReported = @"AirGameCenterEvent_
 static NSString *const kAirGameCenterEvent_scoreReportFailed = @"AirGameCenterEvent_scoreReportFailed";
 static NSString *const kAirGameCenterEvent_achievementReported = @"AirGameCenterEvent_achievementReported";
 static NSString *const kAirGameCenterEvent_achievementReportFailed = @"AirGameCenterEvent_achievementReportFailed";
+static NSString *const kAirGameCenterEvent_achievementsReset = @"AirGameCenterEvent_achievementsReset";
+static NSString *const kAirGameCenterEvent_achievementsResetFailed = @"AirGameCenterEvent_achievementsResetFailed";
 
 static NSString *const kAirGameCenterPhotoEvent_photoLoadError = @"AirGameCenterPhotoEvent_photoLoadError";
 
